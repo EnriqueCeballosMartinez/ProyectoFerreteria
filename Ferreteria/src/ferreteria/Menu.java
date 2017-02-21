@@ -1,16 +1,17 @@
-package ferreteria;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package invferreteria;
 
 /**
- * Clase encargada de el manejo de los menús.
- * 
- * @author Carlos Olivo
- * @version 0.1
+ *
+ * @author Enrique Ceballos
  */
-public class Menu {
-  
-  private final Entrada teclado;
+public class Menu { private final Entrada teclado;
   private final Inventario productos;
-  
+
   /**
    * Inicializa la clase Menú.
    */
@@ -92,4 +93,5 @@ public class Menu {
     }
     System.out.println();
   }
+  
 }

@@ -1,4 +1,9 @@
-package ferreteria;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package invferreteria;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,20 +14,20 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 /**
- * Clase que lleva el control de Archivos.
- * 
- * @author Carlos Olivo
+ *
+ * @author Enrique Ceballos
  * @version 0.1
  */
 public class Archivo {
   
+
   private FileOutputStream fos;
   private ObjectOutputStream oos;
   private FileInputStream fis;
   private ObjectInputStream ois;
   
   /**
-   * Inicializa la clase Archivo.
+   * Inicializa la clase Archivo se le asigna valor nulo.
    */
   public Archivo() {
     fos = null;
@@ -32,7 +37,7 @@ public class Archivo {
   }
   
   /**
-   * Guarda una lista de productos a un archivo.
+   * Guarda una lista de productos a un archivo a partir .
    * @param productos Productos a guardar.
    */
   public void guardar(List productos) {
@@ -51,7 +56,7 @@ public class Archivo {
   }
   
   /**
-   * Carga una lista de productos desde un archivo.
+   * Carga una lista de productos desde un archivo aqui se inicializa el archivo.
    * @return Productos del archivo.
    */
   public List cargar() {

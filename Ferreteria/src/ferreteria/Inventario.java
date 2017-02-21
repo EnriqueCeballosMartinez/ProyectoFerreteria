@@ -1,18 +1,20 @@
-package ferreteria;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package invferreteria;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 /**
- * Clase que lleva el control de inventario sobre los productos y sus operaciones.
- * 
- * @author Carlos Olivo
- * @version 0.1
+ *
+ * @author Enrique Ceballos
  */
 public class Inventario {
-  
-  private List<Producto> productos;
+   private List<Producto> productos;
   private final Entrada teclado;
   private final Archivo archivo;
   
@@ -66,7 +68,7 @@ public class Inventario {
   }
   
   /**
-   * Edita un producto del inventario por su clave.
+   * Edita un producto del inventario por la clave introduccidan.
    */
   public void editarProducto() {
     System.out.print("Clave: #");

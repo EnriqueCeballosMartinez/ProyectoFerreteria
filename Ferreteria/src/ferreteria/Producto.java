@@ -1,16 +1,17 @@
-package ferreteria;
-
-import java.io.Serializable;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package invferreteria;
 
 /**
- * Clase productos.
- * 
- * @author Carlos Olivo
- * @version 0.1
+ *
+ * @author Enrique Ceballos
+ * @version  0.1
  */
-public class Producto implements Serializable {
-  
-  private int clave;
+public class Producto {
+   private int clave;
   private String nombre;
   private String descripcion;
   private double precioCompra;
@@ -96,3 +97,6 @@ public class Producto implements Serializable {
   }
   
 }
+
+  
+

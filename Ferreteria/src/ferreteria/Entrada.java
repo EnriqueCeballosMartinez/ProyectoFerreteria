@@ -1,26 +1,35 @@
-package ferreteria;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package invferreteria;
 
 import java.util.Scanner;
 
 /**
- * Clase que permite capturar la entrada del sistema, por defecto, el teclado.
  *
- * @author Carlos Olivo
+ * @author Enrique Ceballos
  * @version 0.1
+ * 
+ * 
+ * se inicializan el teclado de manera que no se puedan modificar una vez inician
+ * 
  */
-public class Entrada {
 
-  private final Scanner sc;
+
+public class Entrada {
+   private final Scanner sc;
 
   /**
-   * Inicializa la clase Entrada.
+   * Inicializa la clase Entrada .
    */
   public Entrada() {
     sc = new Scanner(System.in);
   }
 
   /**
-   * Lee un numero entero desde el teclado.
+   * Lee un numero entero desde el teclado ingresado por el usuario.
    * 
    * @return Valor numerico tipo entero.
    */
@@ -31,7 +40,7 @@ public class Entrada {
   }
 
   /**
-   * Lee un numero double desde el teclado
+   * Lee un numero double desde el teclado ingresado por el usuario
    * 
    * @return Valor numerico tipo double.
    */
@@ -40,11 +49,12 @@ public class Entrada {
   }
   
   /**
-   * Lee una cadena de texto desde el teclado
+   * Lee una cadena de texto desde el teclado ingresado por el usuario
    * 
    * @return Cadena de texto tipo String.
    */
   public String leerCadena() {
     return sc.nextLine();
   }
+  
 }
