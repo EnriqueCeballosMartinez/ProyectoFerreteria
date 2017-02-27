@@ -5,12 +5,14 @@
  */
 package invferreteria;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Enrique Ceballos
  * @version  0.1
  */
-public class Producto {
+public class Producto implements Serializable{
    private int clave;
   private String nombre;
   private String descripcion;
@@ -96,6 +98,19 @@ public class Producto {
     this.tipoUnidad = tipoUnidad;
   }
   
+ /**
+  *Hace que se realice la venta si el producto se encuentra en existencia
+  * @return regresa verdadero si el prodcuto se encuentra
+  * @return regressa falso si el producto no esta disponible
+  */
+  
+ public boolean ventaProducto(){
+   if (getExistencias() >=1){
+    setExistencias (getExistencias() -1);
+    return true;
+   }
+   return false;
+ }
 }
 
   

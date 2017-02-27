@@ -56,5 +56,9 @@ public class Entrada {
   public String leerCadena() {
     return sc.nextLine();
   }
-  
+   public String leerFecha() {
+    return sc.nextLine();
+  }
 }
+  
+

@@ -5,7 +5,10 @@
  */
 package invferreteria;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,6 +19,7 @@ import java.util.List;
 public class Inventario {
    private List<Producto> productos;
   private final Entrada teclado;
+  private List<Venta>ventas;
   private final Archivo archivo;
   
   /**
@@ -23,6 +27,7 @@ public class Inventario {
    */
   public Inventario() {
     productos = new ArrayList<>();
+    ventas = new ArrayList<>();
     teclado = new Entrada();
     archivo = new Archivo();
   }
@@ -186,7 +191,15 @@ public class Inventario {
     System.out.println("Existencias: " + producto.getExistencias());
     System.out.println("Unidad: " + producto.getTipoUnidad());
   }
+   private void mostrarVenta (Venta venta){
+    System.out.println ("Folio #"+ venta.getFolio());
+    System.out.print(venta.getProductos ());
+    System.out.println ("Productos seleccionados: #"+ venta.getCantidad());
+    System.out.println ("Subtotal: $"+ venta.getSubtotal());
+    System.out.println ("IVA: $" + venta.getIva());
   
+    System.out.println("Total: $" + venta.calcularTotal());
+  }
   /**
    * Comprueba si existe un producto en el inventario.
    * @param clave Clave del producto.
@@ -200,6 +213,16 @@ public class Inventario {
     }
     return false;
   }
+     private boolean existeVenta(int folio) {
+    
+    for (Venta venta : ventas) {
+      if (venta.getFolio() == folio) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
   
   /**
    * Calcula el valor del inventario.
@@ -222,18 +245,127 @@ public class Inventario {
   /**
    * Guarda los productos del inventario en un archivo.
    */
-  public void guardarProductos() {
-    archivo.guardar(productos);
+   public void guardarInventario() {
+    archivo.guardar(productos, ventas);
   }
   
   /**
-   * Carga los productos del inventario de un archivo.
+   * Carga el inventario de un archivo.
    */
-  public void cargarProductos() {
-    List productosArchivo = archivo.cargar();
-    if (productosArchivo != null) {
-      productos = productosArchivo;
-      System.out.println("Productos cargados correctamente.");
+  public void cargarInventario() {
+    List[] Archivo = archivo.cargar();
+    if (Archivo[0] != null && Archivo[1] != null) {
+      productos = Archivo[0];
+      ventas = Archivo[1];
+      System.out.println("Inventario cargado correctamente.");
+    } 
+  }
+  
+ public void venderProducto() {
+    boolean existe = false;
+    int opc = 0;
+    int cantidad = 0;
+    int subtotal = 0;
+    String venta = "";
+    do {
+      System.out.print("Clave: #");
+      int clave = teclado.leerEntero();
+      Iterator<Producto> it = productos.iterator();
+      while(it.hasNext()) {
+        existe = false;
+        Producto producto = it.next();
+        if (producto.getClave() == clave) {
+          existe = true;
+          if(producto.ventaProducto()) {
+            cantidad++;
+            double precio = producto.getPrecioCompra() * 1.50;
+            venta += producto.getNombre() + " | " + producto.getTipoUnidad() + " | $" + precio + "\n";
+            subtotal += precio;
+          } else {
+            System.out.println("El producto no se encuentra en existencia.");
+          }
+          break;
+        }
+      }
+      if(existe == false) {
+        System.out.println("El producto no existe en el inventario.");
+      }
+      System.out.print("Vender otro producto? 1.- Si 2.- No | ");
+      opc = teclado.leerEntero();
+    } while(opc == 1);
+    if(cantidad >= 1) {
+      ventas.add(new Venta(generarFolio(), venta, cantidad, subtotal));
     }
   }
+  
+  /**
+   * Genera un folio para una venta.
+   * @return Folio.
+   */
+  private int generarFolio() {
+    int folio = 1;
+    if(!ventas.isEmpty()) {
+      folio += ventas.get(ventas.size() - 1).getFolio();
+    }
+    return folio;
+  }
+  
+  /**
+   * Muestra un producto por su folio.
+   */
+  public void mostrarVentaFolio() {
+    System.out.print("Folio: #");
+    int folio = teclado.leerEntero();
+    for (Venta venta : ventas) {
+      if(venta.getFolio() == folio) {
+        System.out.println();
+        mostrarVenta(venta);
+        return;
+      }
+    }
+    System.out.println("No existe venta con tal folio en el inventario.");
+  }
+  
+  public void mostrarVentas() {
+    System.out.print("Fecha [" + obtenerFechaActual() + "]: ");
+    String fecha = teclado.leerFecha();
+    if("".equals(fecha)) {
+      fecha = obtenerFechaActual();
+    }
+    int numVentas = 0;
+    int numProductos = 0;
+    double ganancias = 0;
+    for (Venta venta : ventas) {
+      if(venta.obtenerFecha().equals(fecha)) {
+        System.out.println();
+        mostrarVenta(venta);
+        numVentas++;
+        numProductos += venta.getCantidad();
+        ganancias += venta.calcularTotal();
+      }
+    }
+    if(numVentas >= 1) {
+      System.out.println();
+      System.out.println("Fecha: " + fecha);
+      System.out.println("Ventas: #" + numVentas);
+      System.out.println("Productos: #" + numProductos);
+      System.out.println("Ganancias: $" + ganancias);
+    } else {
+      System.out.println("No existe ventas con fecha " + fecha + " en el inventario.");
+    }
+  }
+  
+  private String obtenerFechaActual() {
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    return dateFormat.format(new Date());
+  }
+
 }
+  
+ 
+    
+    
+  
+  
+ 
+ 

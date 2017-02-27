@@ -32,6 +32,11 @@ public class Menu { private final Entrada teclado;
     System.out.println("5.- Calcular costo de inventario");
     System.out.println("6.- Guardar productos");
     System.out.println("7.- Cargar productos");
+    System.out.println("8.- Vender productos ");
+    System.out.println("9.- Mostrar ventas por folio");
+    System.out.println ("10.- Registar venta por fecha");
+    
+    
     System.out.println("0.- Salir");
   }
   
@@ -79,10 +84,20 @@ public class Menu { private final Entrada teclado;
         productos.calcularCostoInventario();
         break;
       case 6:
-        productos.guardarProductos();
+        productos.guardarInventario();
         break;
       case 7:
-        productos.cargarProductos();
+        productos.cargarInventario();
+        break;
+      case 8:
+        productos.venderProducto();
+        break;
+       case 9:
+        productos.mostrarVentaFolio();
+        break;
+      case 10:
+        productos.mostrarVentas();
+                
         break;
       case 0:
         System.out.println("Gracias por usar el programa.");

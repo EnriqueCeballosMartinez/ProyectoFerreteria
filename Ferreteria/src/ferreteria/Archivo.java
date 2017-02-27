@@ -40,11 +40,12 @@ public class Archivo {
    * Guarda una lista de productos a un archivo a partir .
    * @param productos Productos a guardar.
    */
-  public void guardar(List productos) {
+   public void guardar(List productos, List ventas) {
     try {
       fos = new FileOutputStream("Ferreteria");
       oos = new ObjectOutputStream(fos);
       oos.writeObject(productos);
+      oos.writeObject(ventas);
       oos.close();
       fos.close();
       System.out.println("Productos guardados correctamente.");
@@ -59,12 +60,13 @@ public class Archivo {
    * Carga una lista de productos desde un archivo aqui se inicializa el archivo.
    * @return Productos del archivo.
    */
-  public List cargar() {
-    List productos = null;
+  public List[] cargar() {
+    List[] productos = {null, null};
     try {
       fis = new FileInputStream("Ferreteria");
       ois = new ObjectInputStream(fis);
-      productos = (List) ois.readObject();
+      productos[0] = (List) ois.readObject();
+      productos[1] = (List) ois.readObject();
       ois.close();
       fis.close();
     } catch(FileNotFoundException e) {
@@ -74,4 +76,7 @@ public class Archivo {
     }
     return productos;
   }
-}
+
+ 
+  }
+
